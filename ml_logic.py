@@ -19,7 +19,7 @@ def normalize_text(text: str) -> str:
 # ---------------- SKILL CANON ----------------
 SKILLS = [
     # Programming
-    "python", "java", "r", "c++",
+    "python", "java", "api", "c++",
 
     # Data skills
     "data analysis", "exploratory data analysis", "eda",
@@ -87,8 +87,10 @@ def match_resume(jd_text: str, resume_text: str) -> dict:
     matched, missing, skill_overlap = calculate_skill_overlap(
         jd_text, resume_text
     )
+    COSINE_weight = 0.5
+    SKILL_weight = 0.5
 
-    final_score = 0.6 * cosine_score + 0.4 * skill_overlap
+    final_score = COSINE_weight* cosine_score + SKILL_weight* skill_overlap
 
     return {
         "final_score": round(final_score, 3),
