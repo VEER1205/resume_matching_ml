@@ -1,0 +1,4 @@
+Machine Learning Engineer role focused on building practical ML solutions.
+Work includes feature engineering, model training, and evaluation.
+Experience with Python, scikit-learn, and ML pipelines required.
+Deployment experience is a plus.

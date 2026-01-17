@@ -1,0 +1,4 @@
+Research-oriented student with interest in machine learning and data-driven systems.
+Implemented ML algorithms and performed error analysis on experimental results.
+Experience with scikit-learn, Pandas, and Matplotlib.
+Focused on interpretability and understanding model limitations.

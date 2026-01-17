@@ -1,0 +1,4 @@
+Completed coursework in machine learning, statistics, and data science.
+Implemented logistic regression and decision tree models from scratch.
+Performed error analysis using confusion matrices.
+Used scikit-learn for experimentation and evaluation.

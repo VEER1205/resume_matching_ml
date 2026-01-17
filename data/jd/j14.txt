@@ -1,0 +1,4 @@
+Research internship in machine learning and data science.
+Role involves experimentation, evaluation, and analysis of ML models.
+Strong foundation in statistics and machine learning required.
+Python proficiency is expected.

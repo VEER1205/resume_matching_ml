@@ -1,0 +1,4 @@
+Machine learning enthusiast with experience deploying models to cloud environments.
+Built ML models using Python and scikit-learn.
+Deployed inference APIs using FastAPI and Docker.
+Familiar with basic AWS concepts and Linux command line.

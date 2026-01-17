@@ -1,0 +1,4 @@
+Data science student with strong background in statistics and probability.
+Experienced in hypothesis testing, regression analysis, and model evaluation.
+Worked extensively with Python, Pandas, NumPy, and scikit-learn.
+Applied data visualization techniques to communicate insights effectively.

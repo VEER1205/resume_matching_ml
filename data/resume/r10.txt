@@ -1,0 +1,4 @@
+Junior data scientist with experience in Python and machine learning.
+Worked on EDA, feature engineering, and model training.
+Built ML projects using scikit-learn.
+Comfortable working with SQL databases.

@@ -1,0 +1,4 @@
+Hiring a Junior Data Scientist to support data analysis and machine learning tasks.
+Responsibilities include data preprocessing, EDA, and building baseline models.
+Strong Python and Pandas skills required.
+Exposure to machine learning concepts preferred.

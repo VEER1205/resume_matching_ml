@@ -1,0 +1,4 @@
+Data analytics role involving SQL-based data extraction and analysis.
+Strong experience in data visualization and exploratory data analysis required.
+Python and Pandas experience preferred.
+Machine learning exposure is a bonus.

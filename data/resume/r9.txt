@@ -1,0 +1,4 @@
+Built machine learning models and deployed them as REST APIs.
+Used FastAPI for serving ML predictions.
+Handled model persistence using pickle.
+Familiar with Docker and basic Linux commands.

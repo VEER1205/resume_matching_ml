@@ -1,0 +1,3 @@
+Looking for an NLP engineer to work on text processing and information retrieval.
+Experience with TF-IDF, bag of words, and cosine similarity required.
+Knowledge of Python and scikit-learn preferred.

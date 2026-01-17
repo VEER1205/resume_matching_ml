@@ -1,0 +1,4 @@
+Junior machine learning learner with hands-on project experience.
+Worked on data preprocessing, EDA, and basic ML models.
+Comfortable using Python and common data science libraries.
+Motivated to learn and improve through real-world projects.

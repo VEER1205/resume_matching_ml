@@ -1,0 +1,3 @@
+Entry-level data analyst role focused on data cleaning and visualization.
+Strong SQL and data analysis skills required.
+Experience with Python and Pandas is beneficial.

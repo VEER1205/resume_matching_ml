@@ -1,0 +1,3 @@
+Role involves data analysis and building machine learning models.
+Strong skills in Python, SQL, and data visualization required.
+Experience with Pandas and Matplotlib preferred.

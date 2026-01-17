@@ -1,0 +1,5 @@
+Machine learning enthusiast with strong Python and Java background.
+Experience in data preprocessing, model training, and evaluation.
+Designed ML pipelines separating training and inference stages.
+Built APIs using FastAPI to expose ML models.
+Worked with Docker for basic deployment workflows.

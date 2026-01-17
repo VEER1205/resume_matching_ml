@@ -1,0 +1,3 @@
+Machine Learning Intern position for students with Python experience.
+Work involves data preprocessing, exploratory data analysis, and ML modeling.
+Familiarity with scikit-learn and basic statistics required.

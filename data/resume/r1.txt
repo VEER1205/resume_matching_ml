@@ -1,0 +1,5 @@
+Machine Learning Intern with experience in Python, Pandas, NumPy, and scikit-learn.
+Worked on data preprocessing, feature engineering, and exploratory data analysis.
+Built supervised learning models including linear regression and decision trees.
+Implemented TF-IDF and cosine similarity for text-based projects.
+Familiar with SQL and basic model deployment using FastAPI.

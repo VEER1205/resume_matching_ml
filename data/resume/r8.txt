@@ -1,0 +1,2 @@
+Python Python Python machine learning machine learning SQL SQL SQL
+Data analysis Pandas NumPy TensorFlow Docker FastAPI ML AI data science

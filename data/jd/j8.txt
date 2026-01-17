@@ -1,0 +1,3 @@
+Data science role involving experimentation and model evaluation.
+Strong foundation in machine learning and statistics required.
+Experience with Python and scikit-learn necessary.

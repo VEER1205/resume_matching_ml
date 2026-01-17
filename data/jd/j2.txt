@@ -1,0 +1,3 @@
+Seeking a Data Scientist to analyze large datasets and build predictive models.
+Strong experience in data analysis, EDA, and feature engineering required.
+Proficiency in Python, Pandas, and statistics is expected.

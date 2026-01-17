@@ -1,0 +1,4 @@
+Data Science student skilled in Python, data analysis, and machine learning.
+Experience with Pandas, NumPy, and Matplotlib for data visualization.
+Performed exploratory data analysis and built baseline ML models.
+Basic understanding of statistics, probability, and hypothesis testing.

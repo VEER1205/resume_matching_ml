@@ -1,0 +1,4 @@
+Interested in natural language processing and information retrieval.
+Implemented bag of words and TF-IDF models for text similarity tasks.
+Used cosine similarity to rank documents based on relevance.
+Worked with scikit-learn and Python for NLP pipelines.

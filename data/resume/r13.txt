@@ -1,0 +1,4 @@
+Applied data science projects in finance and operations research.
+Worked on predictive modeling and feature engineering for tabular datasets.
+Strong skills in Python, SQL, and data analysis.
+Comfortable working with real-world noisy data.

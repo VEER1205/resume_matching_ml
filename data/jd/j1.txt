@@ -1,0 +1,4 @@
+We are looking for a Machine Learning Engineer with strong Python skills.
+Responsibilities include building ML models, data preprocessing, and evaluation.
+Experience with scikit-learn, Pandas, and NumPy is required.
+Knowledge of SQL and model deployment is a plus.

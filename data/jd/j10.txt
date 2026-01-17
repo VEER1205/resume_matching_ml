@@ -1,0 +1,3 @@
+NLP internship focused on text similarity and document ranking.
+Experience with TF-IDF, cosine similarity, and Python required.
+Familiarity with machine learning concepts expected.

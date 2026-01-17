@@ -1,0 +1,4 @@
+Data analyst with strong SQL and data visualization skills.
+Experienced in exploratory data analysis and feature engineering.
+Used Python, Pandas, and Matplotlib to analyze large datasets.
+Built simple predictive models for trend analysis.
