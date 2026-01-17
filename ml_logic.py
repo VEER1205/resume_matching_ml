@@ -78,6 +78,9 @@ def calculate_skill_overlap(jd_text: str, resume_text: str):
 
 # ---------------- MAIN INFERENCE FUNCTION ----------------
 def match_resume(jd_text: str, resume_text: str) -> dict:
+    jd_text = normalize_text(jd_text)
+    resume_text = normalize_text(resume_text)
+    
     vectors = vectorizer.transform([jd_text, resume_text])
 
     cosine_score = float(
@@ -87,15 +90,15 @@ def match_resume(jd_text: str, resume_text: str) -> dict:
     matched, missing, skill_overlap = calculate_skill_overlap(
         jd_text, resume_text
     )
-    COSINE_weight = 0.5
-    SKILL_weight = 0.5
+    COSINE_weight = 0.4
+    SKILL_weight = 0.6
 
-    final_score = COSINE_weight* cosine_score + SKILL_weight* skill_overlap
+    final_score = COSINE_weight * cosine_score + SKILL_weight * skill_overlap
 
     return {
-        "final_score": round(final_score, 3),
-        "cosine_similarity": round(cosine_score, 3),
-        "skill_overlap": round(skill_overlap, 3),
+        "final_score": final_score,
+        "cosine_similarity": cosine_score,
+        "skill_overlap": skill_overlap,
         "matched_skills": sorted(list(matched)),
         "missing_skills": sorted(list(missing))
     }
