@@ -50,17 +50,6 @@ Scores are relative, not probabilities.
 
 ---
 
-## Project Structure
-.
-├── ml_logic.py
-├── test_matcher.py
-├── tfidf_vectorizer.pkl
-├── requirements.txt
-└── README.md
-
-
----
-
 ## How to Run
 
 1. Install dependencies:
@@ -73,9 +62,7 @@ python test_matcher.py
 ---
 
 ## Sample Output
-Strong match: 0.52
-Partial match: 0.39
-Weak match: 0.29
+Strong match > Partial match > Weak match 
 
 
 Higher-ranked resumes are more aligned with the job description.
