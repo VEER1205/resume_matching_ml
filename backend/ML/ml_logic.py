@@ -1,10 +1,14 @@
 import re
 import pickle
 from sklearn.metrics.pairwise import cosine_similarity
+import os
 
+# Get the absolute path of the directory where ml_logic.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PKL_PATH = os.path.join(BASE_DIR, "tfidf_vectorizer.pkl")
 
 # ---------------- LOAD FROZEN TF-IDF ----------------
-with open("tfidf_vectorizer.pkl", "rb") as f:
+with open(PKL_PATH, "rb") as f:
     vectorizer = pickle.load(f)
 
 
