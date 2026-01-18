@@ -26,11 +26,10 @@ body {
     color: var(--text-0);
 }
 
-/* Vercel-style design */
 .nav-bar {
     position: sticky;
     top: 0;
-    z-50;
+    z-index: 100;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
