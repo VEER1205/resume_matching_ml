@@ -37,9 +37,7 @@
                 <i class="fas fa-zap"></i>
                 Start Matching
             </button>
-            <button class="btn btn-secondary">
-                Learn More
-            </button>
+            <a href="#learn-more" class="btn btn-secondary">Learn More</a>
         </div>
     </section>
 
@@ -281,6 +279,64 @@ The role involves developing backend services, integrating machine learning mode
                     <div class="feature-content">
                         <h3 class="feature-item-title">Transparent and Explainable</h3>
                         <p class="feature-item-desc">No black-box predictions. Every score is based on understandable signals that can be inspected and explained.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--- Learn More Section -->
+     <section id="learn-more" class="learn-more-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title-large" >Learn More Section</h2>
+                <p class="section-subtitle">Why a hybrid approach works better than simple keyword counting</p>
+            </div>
+
+            <div class="learn-more-grid">
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <h3 class="docs-card-title"><i class="fas fa-bullseye"></i> Why Not Just Keyword Matching?</h3>
+                        <ul class="docs-list">
+                            <li><strong>Misses Phrasing Variations:</strong> Fails when candidates use different terminology (e.g., "REST API" vs. "backend services").</li>
+                            <li><strong>Ignores Context:</strong> Cannot differentiate between passing familiarity and deep expertise.</li>
+                            <li><strong>Misses Hidden Experience:</strong> Fails to recognize implied skills not explicitly listed.</li>
+                        </ul>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="docs-card-title"><i class="fas fa-brain"></i> Why Combine Skill & Text Similarity?</h3>
+                        <ul class="docs-list">
+                            <li><strong>Robustness:</strong> Combines hard skill verification with semantic understanding.</li>
+                            <li><strong>Broader Alignment:</strong> Captures the full picture of experience.</li>
+                            <li><strong>Better Ranking:</strong> Delivers more realistic candidate rankings.</li>
+                        </ul>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="docs-card-title"><i class="fas fa-robot"></i> Is This Machine Learning?</h3>
+                        <ul class="docs-list">
+                            <li><strong>Yes, but Transparent:</strong> Uses statistical text representation (e.g., TF-IDF/BERT) to compare documents.</li>
+                            <li><strong>Explainable AI (XAI):</strong> Every output is traceable to specific signals within the text.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="limitations-container">
+                    <div class="docs-card warning">
+                        <h3 class="docs-card-title"><i class="fas fa-exclamation-triangle"></i> Limitations</h3>
+                        <ul class="docs-list">
+                            <li><strong>Garbage In, Garbage Out:</strong> Accuracy depends heavily on the input text quality.</li>
+                            <li><strong>Rule-Based Dependencies:</strong> Skill extraction relies on pre-defined dictionaries.</li>
+                            <li><strong>Structure Sensitivity:</strong> Scores can vary based on resume layout.</li>
+                        </ul>
+                    </div>
+                    <div class="docs-card">
+                        <h3 class="docs-card-title"><i class="fas fa-check-circle"></i> Best Use Cases</h3>
+                        <ul class="docs-list">
+                            <li>Resume screening and comparative ranking.</li>
+                            <li>Self-evaluation of resume relevance.</li>
+                            <li>Experimental and educational purposes.</li>
+                        </ul>
+                        <p class="docs-note">Note: Not intended for final, automated hiring decisions.</p>
                     </div>
                 </div>
             </div>
