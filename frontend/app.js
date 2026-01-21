@@ -1,7 +1,7 @@
 // State Management
 const state = {
     jobDescription: '',
-    resumes: [],
+    resumes: [], // Now stores actual File objects
     rankings: [],
     darkMode: localStorage.getItem('darkMode') === 'true'
 };
@@ -24,7 +24,7 @@ function init() {
     initTheme();
 }
 
-// Theme Management
+// Theme Management (Unchanged)
 function initTheme() {
     const htmlElement = document.documentElement;
     if (state.darkMode) {
@@ -36,13 +36,11 @@ function initTheme() {
 function toggleTheme() {
     state.darkMode = !state.darkMode;
     const htmlElement = document.documentElement;
-    
     if (state.darkMode) {
         htmlElement.classList.add('dark-mode');
     } else {
         htmlElement.classList.remove('dark-mode');
     }
-    
     localStorage.setItem('darkMode', state.darkMode);
     updateThemeIcon();
 }
@@ -71,23 +69,17 @@ function setupEventListeners() {
     themeToggleEl.addEventListener('click', toggleTheme);
 }
 
-// File Management
+// --- UPDATED FILE MANAGEMENT ---
 function handleAddResume(e) {
     const files = Array.from(e.target.files);
     
+    // Store the actual File object for sending to API
     files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            state.resumes.push({
-                name: file.name,
-                content: event.target.result
-            });
-            renderFileList();
-        };
-        reader.readAsText(file);
+        state.resumes.push(file);
     });
 
-    resumeInputEl.value = '';
+    renderFileList();
+    resumeInputEl.value = ''; // Reset input
 }
 
 function handleRemoveFile(idx) {
@@ -110,16 +102,16 @@ function renderFileList() {
 
     clearFilesBtn.style.display = 'flex';
 
-    state.resumes.forEach((resume, idx) => {
+    state.resumes.forEach((file, idx) => {
         const fileItem = document.createElement('div');
         fileItem.className = 'file-item';
 
-        const displayName = resume.name.length > 40 ? resume.name.substring(0, 37) + '…' : resume.name;
+        const displayName = file.name.length > 40 ? file.name.substring(0, 37) + '…' : file.name;
 
         fileItem.innerHTML = `
             <div class="file-info">
                 <i class="fas fa-check" style="color: #10b981; font-size: 0.875rem;"></i>
-                <span class="file-name" title="${resume.name}">${displayName}</span>
+                <span class="file-name" title="${file.name}">${displayName}</span>
             </div>
             <button class="file-remove" title="Remove">Remove</button>
         `;
@@ -132,8 +124,8 @@ function renderFileList() {
     });
 }
 
-// Ranking Logic
-function handleRank() {
+// --- UPDATED RANKING LOGIC WITH API ---
+async function handleRank() {
     // Validation
     if (!state.jobDescription.trim()) {
         showError('Please enter a job description');
@@ -147,16 +139,57 @@ function handleRank() {
 
     hideError();
     rankButtonEl.disabled = true;
-    rankButtonEl.innerHTML = '<i class="fas fa-spinner loading"></i>Analyzing…';
+    rankButtonEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
 
-    // Process
-    setTimeout(() => {
-        state.rankings = rankResumesLogic(state.jobDescription, state.resumes);
+    const results = [];
+
+    try {
+        // Send each resume to the backend one by one
+        // (Using a loop to handle multiple files)
+        for (const file of state.resumes) {
+            const formData = new FormData();
+            formData.append('job_description', state.jobDescription);
+            formData.append('file', file);
+
+            const response = await fetch('/match', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error processing ${file.name}`);
+            }
+
+            const jsonResponse = await response.json();
+            
+            if (jsonResponse.status === 'success') {
+                const data = jsonResponse.data;
+                
+                // Add result to our list
+                results.push({
+                    name: jsonResponse.filename,
+                    preview: "Processed via Gemini & ML", // Static text or extract from response
+                    hybridScore: data.match_percentage, // The main score
+                    skillScore: data.match_percentage,  // Using same score for demo (or ask backend for split)
+                    textScore: data.match_percentage,   // Using same score for demo
+                    matchedSkills: data.extracted_skills, // Skills from Gemini
+                    totalJobSkills: data.extracted_skills.length + data.missing_skills.length
+                });
+            }
+        }
+
+        // Sort results: Highest score first
+        state.rankings = results.sort((a, b) => b.hybridScore - a.hybridScore);
+        
         renderRankings();
 
+    } catch (error) {
+        console.error(error);
+        showError('Failed to connect to the server. Is the backend running?');
+    } finally {
         rankButtonEl.disabled = false;
-        rankButtonEl.innerHTML = '<i class="fas fa-fire"></i>Analyze Resumes';
-    }, 800);
+        rankButtonEl.innerHTML = '<i class="fas fa-fire"></i> Analyze Resumes';
+    }
 }
 
 function renderRankings() {
@@ -198,17 +231,19 @@ function createRankingCard(ranking, idx) {
         </div>
     `;
 
+    // Note: I am reusing the hybridScore for both bars for simplicity.
+    // Ideally, your backend should return separate 'text_similarity' and 'skill_similarity' scores.
     const metricsHTML = `
         <div class="metrics-grid">
             <div class="metric">
-                <div class="metric-label">Skill Match</div>
+                <div class="metric-label">Overall Match</div>
                 <div class="metric-value">${ranking.skillScore}%</div>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: ${ranking.skillScore}%"></div>
                 </div>
             </div>
             <div class="metric">
-                <div class="metric-label">Text Similarity</div>
+                <div class="metric-label">Confidence</div>
                 <div class="metric-value">${ranking.textScore}%</div>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width: ${ranking.textScore}%"></div>
@@ -219,10 +254,11 @@ function createRankingCard(ranking, idx) {
 
     let skillsHTML = `
         <div class="skills-section">
-            <div class="skills-label">Matched Skills (${ranking.matchedSkills.length}/${ranking.totalJobSkills})</div>
+            <div class="skills-label">Detected Skills (${ranking.matchedSkills.length})</div>
             <div class="skills-list">
     `;
 
+    // Display first 7 skills
     ranking.matchedSkills.slice(0, 7).forEach(skill => {
         skillsHTML += `<span class="skill-badge">${skill}</span>`;
     });

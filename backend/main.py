@@ -1,12 +1,15 @@
 import os
 import shutil
+import json
 import pdfplumber
-import spacy
-from spacy.matcher import PhraseMatcher
+import google.generativeai as genai  # <--- NEW IMPORT
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+load_dotenv()
 
 # --- IMPORT ML LOGIC ---
+# Assuming this is your local file
 from ML.ml_logic import match_resume
 
 app = FastAPI()
@@ -15,8 +18,13 @@ app = FastAPI()
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# 1. Load Spacy
-nlp = spacy.load("en_core_web_sm")
+# --- GEMINI SETUP ---
+# Replace with your actual API Key or use os.getenv("GEMINI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") 
+genai.configure(api_key=GEMINI_API_KEY)
+
+# We use 'gemini-1.5-flash' as it is fast and cheap for text tasks
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 # --- CORS ---
 app.add_middleware(
@@ -27,23 +35,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- YOUR CUSTOM SKILLS DB ---
-SKILLS_DB = [
-    # Languages
-    "Python", "Java", "C++", "C", "JavaScript", "HTML", "CSS", "SQL", "MySQL",
-    # Frameworks & Libraries
-    "FastAPI", "Django", "Express.js", "Node.js", "React", "Custom Tkinter", 
-    "KivyMD", "Tkinter", "PyGame", "Google Gen AI APIs", "Google Gen AI",
-    # Tools & Platforms
-    "Git", "GitHub", "Visual Studio Code", "Jupyter Notebook", "Postman", 
-    "AWS", "Docker", "Linux",
-    # Concepts / Other
-    "RESTful APIs", "JWT Authentication", "Object-Oriented Programming", 
-    "Machine Learning", "Data Structures", "Algorithms", "Data Visualization"
-]
-
 # --- HELPER FUNCTIONS ---
 def extract_text_from_pdf(file_path):
+    """
+    Extracts raw text using pdfplumber to send to Gemini.
+    """
     text = ""
     try:
         with pdfplumber.open(file_path) as pdf:
@@ -55,24 +51,38 @@ def extract_text_from_pdf(file_path):
         print(f"Error reading PDF: {e}")
     return text
 
-def extract_skills_with_spacy(text):
+def extract_skills_with_gemini(text):
     """
-    Extracts skills using YOUR custom list (SKILLS_DB).
+    Uses Gemini API to intelligently extract skills from the resume text.
     """
-    doc = nlp(text)
-    matcher = PhraseMatcher(nlp.vocab)
-    
-    # Create patterns
-    patterns = [nlp.make_doc(skill) for skill in SKILLS_DB]
-    matcher.add("SKILLS", patterns)
-    
-    matches = matcher(doc)
-    found_skills = set()
-    
-    for _, start, end in matches:
-        found_skills.add(doc[start:end].text)
+    try:
+        # Prompt engineering to get a strict JSON list
+        prompt = f"""
+        You are an expert ATS (Applicant Tracking System). 
+        Analyze the resume text provided below and extract all Technical Skills, 
+        Programming Languages, Frameworks, Libraries, and Tools.
         
-    return list(found_skills)
+        Return ONLY a raw JSON list of strings. Do not add Markdown formatting (like ```json).
+        
+        RESUME TEXT:
+        {text}
+        """
+        
+        response = model.generate_content(prompt)
+        
+        # Clean the response to ensure it can be parsed as JSON
+        cleaned_response = response.text.strip()
+        
+        # Handle cases where Gemini might still add markdown backticks
+        if cleaned_response.startswith("```"):
+            cleaned_response = cleaned_response.strip("`").replace("json", "").strip()
+
+        skills_list = json.loads(cleaned_response)
+        return skills_list
+
+    except Exception as e:
+        print(f"Gemini Extraction Error: {e}")
+        return [] # Return empty list on failure
 
 # --- API ENDPOINT ---
 @app.post("/match")
@@ -86,25 +96,28 @@ async def match_endpoint(
         shutil.copyfileobj(file.file, buffer)
         
     try:
-        # 2. Extract Raw Text (For the ML Model)
+        # 2. Extract Raw Text (via pdfplumber)
         resume_text = extract_text_from_pdf(file_path)
         
-        # 3. Extract Specific Skills (For the JSON Output)
-        my_custom_skills = extract_skills_with_spacy(resume_text)
+        if not resume_text.strip():
+            return {"status": "error", "message": "Could not extract text from PDF"}
+
+        # 3. Extract Specific Skills (via GEMINI API)
+        # This replaces the old Spacy method
+        gemini_skills = extract_skills_with_gemini(resume_text)
         
         # 4. Get Score from ML Model
-        # We pass the full text so the ML model can do TF-IDF math
+        # (Assuming your ML logic handles TF-IDF/Cosine Similarity)
         ml_result = match_resume(job_description, resume_text)
         
         # 5. Merge the results
-        # We overwrite the ML model's simple skills with YOUR custom spacy skills
         return {
             "status": "success",
             "filename": file.filename,
             "data": {
-                "match_percentage": round(ml_result["final_score"] * 100, 2),
-                "extracted_skills": my_custom_skills,  # <--- HERE are your specific skills
-                "missing_skills": ml_result["missing_skills"]
+                "match_percentage": round(ml_result.get("final_score", 0) * 100, 2),
+                "extracted_skills": gemini_skills,  # <--- Now powered by Gemini
+                "missing_skills": ml_result.get("missing_skills", [])
             }
         }
 
@@ -118,4 +131,4 @@ async def match_endpoint(
 
 @app.get("/")
 def home():
-    return {"message": "Resume Matcher API is Running"}
+    return {"message": "Resume Matcher API (Powered by Gemini) is Running"}
