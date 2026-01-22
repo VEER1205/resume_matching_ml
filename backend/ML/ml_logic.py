@@ -22,36 +22,89 @@ def normalize_text(text: str) -> str:
 
 # ---------------- SKILL CANON ----------------
 SKILLS = [
-    # Programming
-    "python", "java", "api", "c++",
+    # --- Programming Languages ---
+    "python", "java", "c++", "c", "c#", 
+    "go", "golang", "rust", "ruby", "php", 
+    "javascript", "typescript", "r", "scala", "julia",
 
-    # Data skills
+    # --- Data Analysis & Core ---
     "data analysis", "exploratory data analysis", "eda",
     "data cleaning", "data preprocessing", "feature engineering",
+    "data mining", "data wrangling", "statistics", "probability",
+    "hypothesis testing", "a b testing", "bayesian statistics",
+    "excel", "spreadsheet",
 
-    # ML core
+    # --- Machine Learning (Core) ---
     "machine learning", "supervised learning", "unsupervised learning",
-    "linear regression", "logistic regression",
-    "decision trees", "random forest", "clustering",
+    "reinforcement learning", "semi supervised learning",
+    "linear regression", "logistic regression", "xgboost", "lightgbm", "catboost",
+    "decision trees", "random forest", "gradient boosting", "svm", "support vector machines",
+    "clustering", "k means", "dbscan", "pca", "dimensionality reduction",
+    "ensemble methods", "hyperparameter tuning", "grid search", "random search",
 
-    # NLP
-    "natural language processing", "nlp",
-    "tf idf", "bag of words", "text similarity", "cosine similarity",
+    # --- Deep Learning ---
+    "deep learning", "neural networks", "ann", 
+    "pytorch", "tensorflow", "keras", "fastai",
+    "cnn", "convolutional neural networks", 
+    "rnn", "lstm", "gru", "transformers", "bert", "vision transformer",
 
-    # Libraries
-    "scikit learn", "sklearn", "pandas", "numpy",
-    "matplotlib", "seaborn",
+    # --- Generative AI & LLMs ---
+    "generative ai", "genai", "large language models", "llm",
+    "rag", "retrieval augmented generation", "langchain", "llamaindex",
+    "hugging face", "prompt engineering", "fine tuning", "lora", "qlora",
+    "openai api", "stable diffusion",
 
-    # Data storage
-    "sql", "mysql", "postgresql", "database", "data warehouse",
+    # --- NLP ---
+    "natural language processing", "nlp", "nlu", "nlg",
+    "tf idf", "bag of words", "word embeddings", "word2vec", "glove",
+    "text similarity", "cosine similarity", "sentiment analysis",
+    "named entity recognition", "ner", "tokenization", "lemmatization",
+    "spacy", "nltk", "gensim",
 
-    # MLOps
-    "fastapi", "api", "model deployment",
-    "docker", "ml pipeline", "model serving",
+    # --- Computer Vision ---
+    "computer vision", "opencv", "image processing",
+    "object detection", "yolo", "image segmentation", "ocr",
 
-    # Optional
-    "statistics", "probability",
-    "hypothesis testing", "a b testing", "data visualization"
+    # --- Libraries & Science ---
+    "scikit learn", "sklearn", "pandas", "numpy", "scipy",
+    "matplotlib", "seaborn", "plotly", "bokeh", "altair", "streamlit", "gradio",
+
+    # --- Data Engineering & Big Data ---
+    "sql", "mysql", "postgresql", "sqlite", "oracle", "sql server",
+    "nosql", "mongodb", "redis", "cassandra", "dynamodb",
+    "database", "data warehouse", "data lake",
+    "apache spark", "pyspark", "hadoop", "kafka", 
+    "airflow", "etl", "elt", "databricks", "snowflake", "bigquery", "redshift",
+
+    # --- MLOps ---
+    "mlops", "model deployment", "model serving", "model monitoring",
+    "ml pipeline", "mlflow", "wandb", "weights and biases",
+    "kubeflow", "ray", "triton",
+    "docker", "kubernetes", "k8s", "containerization",
+
+    # --- Backend ---
+    "node js", "express js", "django", "flask", "fastapi",
+    "spring boot", "ruby on rails", "asp net",
+    "api", "rest api", "restful api", "graphql", "grpc", "websockets",
+    "microservices", "serverless", "aws lambda",
+    "celery", "rabbitmq",
+
+    # --- Frontend ---
+    "html", "html5", "css", "css3", "sass", "less",
+    "react", "react js", "angular", "vue", "vue js",
+    "next js", "redux", "state management",
+    "tailwind css", "bootstrap", "material ui",
+    "frontend", "web development", "responsive design",
+
+    # --- Cloud & DevOps ---
+    "aws", "amazon web services", "ec2", "s3", "rds", "sagemaker",
+    "azure", "azure machine learning",
+    "gcp", "google cloud platform", "vertex ai",
+    "devops", "ci cd", "continuous integration", "continuous deployment",
+    "jenkins", "github actions", "gitlab ci", "circleci",
+    "terraform", "ansible",
+    "git", "github", "gitlab", "bitbucket", "version control",
+    "linux", "bash", "shell scripting", "command line"
 ]
 
 
