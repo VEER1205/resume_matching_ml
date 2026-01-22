@@ -2,7 +2,7 @@ import os
 import shutil
 import json
 import pdfplumber
-import google.generativeai as genai  # <--- NEW IMPORT
+import google.generativeai as genai
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv

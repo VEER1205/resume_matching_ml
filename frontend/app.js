@@ -151,7 +151,7 @@ async function handleRank() {
             formData.append('job_description', state.jobDescription);
             formData.append('file', file);
 
-            const response = await fetch('/match', {
+            const response = await fetch('https://resume-jd-matching-ml.onrender.com/match', {
                 method: 'POST',
                 body: formData
             });
