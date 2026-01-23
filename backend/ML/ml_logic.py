@@ -24,8 +24,8 @@ def normalize_text(text: str) -> str:
 SKILLS = [
     # --- Programming Languages ---
     "python", "java", "c++", "c", "c#", 
-    "go", "golang", "rust", "ruby", "php", 
-    "javascript", "typescript", "r", "scala", "julia",
+     "golang", "rust", "ruby", "php", 
+    "javascript", "typescript", "scala", "julia",
 
     # --- Data Analysis & Core ---
     "data analysis", "exploratory data analysis", "eda",
