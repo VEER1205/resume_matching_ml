@@ -20,92 +20,255 @@ def normalize_text(text: str) -> str:
     return text.strip()
 
 
-# ---------------- SKILL CANON ----------------
-SKILLS = [
-    # --- Programming Languages ---
-    "python", "java", "c++", "c", "c#", 
-     "golang", "rust", "ruby", "php", 
-    "javascript", "typescript", "scala", "julia",
 
-    # --- Data Analysis & Core ---
-    "data analysis", "exploratory data analysis", "eda",
-    "data cleaning", "data preprocessing", "feature engineering",
-    "data mining", "data wrangling", "statistics", "probability",
-    "hypothesis testing", "a b testing", "bayesian statistics",
-    "excel", "spreadsheet",
+# ---------------- SKILL MAP ----------------
+# ================================
+# SKILL MAP
+# Canonical Skill -> Alias Set
+# ================================
 
-    # --- Machine Learning (Core) ---
-    "machine learning", "supervised learning", "unsupervised learning",
-    "reinforcement learning", "semi supervised learning",
-    "linear regression", "logistic regression", "xgboost", "lightgbm", "catboost",
-    "decision trees", "random forest", "gradient boosting", "svm", "support vector machines",
-    "clustering", "k means", "dbscan", "pca", "dimensionality reduction",
-    "ensemble methods", "hyperparameter tuning", "grid search", "random search",
+SKILL_MAP = {
 
-    # --- Deep Learning ---
-    "deep learning", "neural networks", "ann", 
-    "pytorch", "tensorflow", "keras", "fastai",
-    "cnn", "convolutional neural networks", 
-    "rnn", "lstm", "gru", "transformers", "bert", "vision transformer",
+    # ------------------------------------------------
+    # Core Concepts
+    # ------------------------------------------------
+    "machine learning": {"machine learning", "ml"},
+    "deep learning": {"deep learning", "dl"},
+    "natural language processing": {"natural language processing", "nlp"},
+    "computer vision": {"computer vision", "cv"},
+    "ci/cd": {"ci cd", "ci-cd", "continuous integration", "continuous deployment"},
 
-    # --- Generative AI & LLMs ---
-    "generative ai", "genai", "large language models", "llm",
-    "rag", "retrieval augmented generation", "langchain", "llamaindex",
-    "hugging face", "prompt engineering", "fine tuning", "lora", "qlora",
-    "openai api", "stable diffusion",
+    # ------------------------------------------------
+    # Programming Languages
+    # ------------------------------------------------
+    "python": {"python"},
+    "java": {"java"},
+    "c": {"c"},
+    "c++": {"c++"},
+    "c#": {"c#"},
+    "golang": {"go", "golang"},
+    "rust": {"rust"},
+    "ruby": {"ruby"},
+    "php": {"php"},
+    "javascript": {"javascript", "js"},
+    "typescript": {"typescript", "ts"},
+    "scala": {"scala"},
+    "julia": {"julia"},
 
-    # --- NLP ---
-    "natural language processing", "nlp", "nlu", "nlg",
-    "tf idf", "bag of words", "word embeddings", "word2vec", "glove",
-    "text similarity", "cosine similarity", "sentiment analysis",
-    "named entity recognition", "ner", "tokenization", "lemmatization",
-    "spacy", "nltk", "gensim",
+    # ------------------------------------------------
+    # Data Analysis & Statistics
+    # ------------------------------------------------
+    "data analysis": {"data analysis"},
+    "exploratory data analysis": {"exploratory data analysis", "eda"},
+    "data cleaning": {"data cleaning"},
+    "data preprocessing": {"data preprocessing"},
+    "feature engineering": {"feature engineering"},
+    "data mining": {"data mining"},
+    "data wrangling": {"data wrangling"},
+    "statistics": {"statistics"},
+    "probability": {"probability"},
+    "hypothesis testing": {"hypothesis testing"},
+    "a/b testing": {"a b testing", "ab testing", "a/b testing"},
+    "bayesian statistics": {"bayesian statistics"},
+    "excel": {"excel"},
+    "spreadsheets": {"spreadsheet", "spreadsheets"},
 
-    # --- Computer Vision ---
-    "computer vision", "opencv", "image processing",
-    "object detection", "yolo", "image segmentation", "ocr",
+    # ------------------------------------------------
+    # Machine Learning Algorithms
+    # ------------------------------------------------
+    "supervised learning": {"supervised learning"},
+    "unsupervised learning": {"unsupervised learning"},
+    "reinforcement learning": {"reinforcement learning"},
+    "semi-supervised learning": {
+        "semi supervised learning",
+        "semi-supervised learning"
+    },
 
-    # --- Libraries & Science ---
-    "scikit learn", "sklearn", "pandas", "numpy", "scipy",
-    "matplotlib", "seaborn", "plotly", "bokeh", "altair", "streamlit", "gradio",
+    "linear regression": {"linear regression"},
+    "logistic regression": {"logistic regression"},
+    "decision trees": {"decision tree", "decision trees"},
+    "random forest": {"random forest", "random forests"},
+    "gradient boosting": {"gradient boosting"},
+    "xgboost": {"xgboost"},
+    "lightgbm": {"lightgbm"},
+    "catboost": {"catboost"},
 
-    # --- Data Engineering & Big Data ---
-    "sql", "mysql", "postgresql", "sqlite", "oracle", "sql server",
-    "nosql", "mongodb", "redis", "cassandra", "dynamodb",
-    "database", "data warehouse", "data lake",
-    "apache spark", "pyspark", "hadoop", "kafka", 
-    "airflow", "etl", "elt", "databricks", "snowflake", "bigquery", "redshift",
+    "support vector machines": {
+        "svm",
+        "support vector machine",
+        "support vector machines"
+    },
 
-    # --- MLOps ---
-    "mlops", "model deployment", "model serving", "model monitoring",
-    "ml pipeline", "mlflow", "wandb", "weights and biases",
-    "kubeflow", "ray", "triton",
-    "docker", "kubernetes", "k8s", "containerization",
+    "clustering": {"clustering"},
+    "k-means": {"k means", "k-means"},
+    "dbscan": {"dbscan"},
+    "dimensionality reduction": {"dimensionality reduction"},
+    "pca": {"pca", "principal component analysis"},
 
-    # --- Backend ---
-    "node js", "express js", "django", "flask", "fastapi",
-    "spring boot", "ruby on rails", "asp net",
-    "api", "rest api", "restful api", "graphql", "grpc", "websockets",
-    "microservices", "serverless", "aws lambda",
-    "celery", "rabbitmq",
+    "ensemble methods": {"ensemble methods"},
+    "hyperparameter tuning": {"hyperparameter tuning"},
+    "grid search": {"grid search"},
+    "random search": {"random search"},
 
-    # --- Frontend ---
-    "html", "html5", "css", "css3", "sass", "less",
-    "react", "react js", "angular", "vue", "vue js",
-    "next js", "redux", "state management",
-    "tailwind css", "bootstrap", "material ui",
-    "frontend", "web development", "responsive design",
+    # ------------------------------------------------
+    # Deep Learning Architectures
+    # ------------------------------------------------
+    "neural networks": {"neural networks", "neural network", "ann"},
+    "convolutional neural networks": {
+        "cnn",
+        "convolutional neural network",
+        "convolutional neural networks"
+    },
+    "recurrent neural networks": {
+        "rnn",
+        "recurrent neural network",
+        "recurrent neural networks"
+    },
+    "lstm": {"lstm"},
+    "gru": {"gru"},
+    "transformers": {"transformers", "transformer"},
+    "bert": {"bert"},
+    "vision transformer": {"vision transformer", "vit"},
 
-    # --- Cloud & DevOps ---
-    "aws", "amazon web services", "ec2", "s3", "rds", "sagemaker",
-    "azure", "azure machine learning",
-    "gcp", "google cloud platform", "vertex ai",
-    "devops", "ci cd", "continuous integration", "continuous deployment",
-    "jenkins", "github actions", "gitlab ci", "circleci",
-    "terraform", "ansible",
-    "git", "github", "gitlab", "bitbucket", "version control",
-    "linux", "bash", "shell scripting", "command line"
-]
+    # ------------------------------------------------
+    # ML / DL Frameworks
+    # ------------------------------------------------
+    "pytorch": {"pytorch", "torch"},
+    "tensorflow": {"tensorflow", "tf"},
+    "keras": {"keras"},
+    "fastai": {"fastai"},
+    "scikit-learn": {"scikit learn", "scikit-learn", "sklearn"},
+
+    # ------------------------------------------------
+    # Generative AI & LLMs
+    # ------------------------------------------------
+    "generative ai": {"generative ai", "genai"},
+    "large language models": {"large language models", "llm", "llms"},
+    "retrieval augmented generation": {
+        "rag",
+        "retrieval augmented generation"
+    },
+    "langchain": {"langchain"},
+    "llamaindex": {"llamaindex"},
+    "hugging face": {"hugging face", "huggingface"},
+    "prompt engineering": {"prompt engineering"},
+    "fine tuning": {"fine tuning", "finetuning"},
+    "lora": {"lora"},
+    "qlora": {"qlora"},
+    "openai api": {"openai api"},
+    "stable diffusion": {"stable diffusion"},
+
+    # ------------------------------------------------
+    # NLP Techniques & Libraries
+    # ------------------------------------------------
+    "nlu": {"nlu"},
+    "nlg": {"nlg"},
+    "tf-idf": {"tf idf", "tf-idf"},
+    "bag of words": {"bag of words", "bow"},
+    "word embeddings": {"word embeddings"},
+    "word2vec": {"word2vec"},
+    "glove": {"glove"},
+    "text similarity": {"text similarity"},
+    "cosine similarity": {"cosine similarity"},
+    "sentiment analysis": {"sentiment analysis"},
+    "named entity recognition": {
+        "named entity recognition",
+        "ner"
+    },
+    "tokenization": {"tokenization"},
+    "lemmatization": {"lemmatization"},
+    "spacy": {"spacy"},
+    "nltk": {"nltk"},
+    "gensim": {"gensim"},
+
+    # ------------------------------------------------
+    # Computer Vision Tools
+    # ------------------------------------------------
+    "opencv": {"opencv"},
+    "image processing": {"image processing"},
+    "object detection": {"object detection"},
+    "yolo": {"yolo"},
+    "image segmentation": {"image segmentation"},
+    "ocr": {"ocr"},
+
+    # ------------------------------------------------
+    # Data Engineering & Databases
+    # ------------------------------------------------
+    "sql": {"sql"},
+    "mysql": {"mysql"},
+    "postgresql": {"postgresql", "postgres"},
+    "sqlite": {"sqlite"},
+    "oracle": {"oracle"},
+    "sql server": {"sql server"},
+    "nosql": {"nosql"},
+    "mongodb": {"mongodb"},
+    "redis": {"redis"},
+    "cassandra": {"cassandra"},
+    "dynamodb": {"dynamodb"},
+    "data warehouse": {"data warehouse"},
+    "data lake": {"data lake"},
+    "apache spark": {"apache spark", "spark"},
+    "pyspark": {"pyspark"},
+    "hadoop": {"hadoop"},
+    "kafka": {"kafka"},
+    "airflow": {"airflow"},
+    "etl": {"etl"},
+    "elt": {"elt"},
+    "databricks": {"databricks"},
+    "snowflake": {"snowflake"},
+    "bigquery": {"bigquery"},
+    "redshift": {"redshift"},
+
+    # ------------------------------------------------
+    # MLOps & DevOps
+    # ------------------------------------------------
+    "mlops": {"mlops"},
+    "model deployment": {"model deployment"},
+    "model serving": {"model serving"},
+    "model monitoring": {"model monitoring"},
+    "ml pipeline": {"ml pipeline"},
+    "mlflow": {"mlflow"},
+    "wandb": {"wandb", "weights and biases"},
+    "kubeflow": {"kubeflow"},
+    "ray": {"ray"},
+    "triton": {"triton"},
+    "docker": {"docker"},
+    "kubernetes": {"kubernetes", "k8s"},
+    "containerization": {"containerization"},
+
+    # ------------------------------------------------
+    # Backend, Frontend, Cloud
+    # ------------------------------------------------
+    "fastapi": {"fastapi"},
+    "django": {"django"},
+    "flask": {"flask"},
+    "spring boot": {"spring boot"},
+    "node.js": {"node js", "node.js"},
+    "express.js": {"express js", "express.js"},
+    "graphql": {"graphql"},
+    "grpc": {"grpc"},
+    "rest api": {"rest api", "restful api"},
+    "websockets": {"websockets"},
+    "microservices": {"microservices"},
+    "serverless": {"serverless"},
+    "aws lambda": {"aws lambda"},
+
+    "react": {"react", "react js"},
+    "angular": {"angular"},
+    "vue": {"vue", "vue js"},
+    "next.js": {"next js"},
+    "redux": {"redux"},
+    "tailwind css": {"tailwind css"},
+    "bootstrap": {"bootstrap"},
+    "material ui": {"material ui"},
+
+    "aws": {"aws", "amazon web services"},
+    "azure": {"azure", "azure machine learning"},
+    "gcp": {"gcp", "google cloud platform"},
+    "vertex ai": {"vertex ai"},
+}
+
+
 
 
 # ---------------- SKILL EXTRACTION ----------------
@@ -113,9 +276,12 @@ def extract_skills(text: str) -> set:
     text = normalize_text(text)
     found = set()
 
-    for skill in SKILLS:
-        if skill in text:
-            found.add(skill)
+    for canonical, aliases in SKILL_MAP.items():
+        for alias in aliases:
+            pattern = r"\b" + re.escape(alias) + r"\b"
+            if re.search(pattern, text):
+                found.add(canonical)
+                break   
 
     return found
 
@@ -147,8 +313,8 @@ def match_resume(jd_text: str, resume_text: str) -> dict:
     matched, missing, skill_overlap = calculate_skill_overlap(
         jd_text, resume_text
     )
-    COSINE_weight = 0.4
-    SKILL_weight = 0.6
+    COSINE_weight = 0.5
+    SKILL_weight = 0.5
 
     final_score = COSINE_weight * cosine_score + SKILL_weight * skill_overlap
 
