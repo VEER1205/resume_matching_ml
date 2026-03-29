@@ -10,6 +10,7 @@ Familiarity with machine learning concepts
 Experience with data preprocessing and model deployment
 Knowledge of FastAPI or Flask preferred
 SQL and basic cloud exposure is a plus
+c
 """
 
 resume_strong = """
@@ -39,5 +40,3 @@ No backend or API development experience
 """
 
 print("Strong match:", match_resume(jd, resume_strong))
-print("Partial match:", match_resume(jd, resume_partial))
-print("Weak match:", match_resume(jd, resume_weak))
