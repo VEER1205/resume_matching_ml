@@ -9,6 +9,7 @@ const state = {
 // DOM Elements
 const jobDescriptionEl = document.getElementById('jobDescription');
 const resumeInputEl = document.getElementById('resumeInput');
+const uploadAreaEl = document.getElementById('uploadArea');
 const fileListEl = document.getElementById('fileList');
 const clearFilesBtn = document.getElementById('clearFilesBtn');
 const rankButtonEl = document.getElementById('rankButton');
@@ -67,6 +68,35 @@ function setupEventListeners() {
     rankButtonEl.addEventListener('click', handleRank);
     clearButtonEl.addEventListener('click', handleClear);
     themeToggleEl.addEventListener('click', toggleTheme);
+
+    // Custom upload area — click to browse
+    uploadAreaEl.addEventListener('click', () => {
+        resumeInputEl.click();
+    });
+
+    // Drag and drop support
+    uploadAreaEl.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadAreaEl.style.borderColor = 'var(--accent)';
+        uploadAreaEl.style.background = 'rgba(14, 165, 233, 0.06)';
+    });
+
+    uploadAreaEl.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadAreaEl.style.borderColor = '';
+        uploadAreaEl.style.background = '';
+    });
+
+    uploadAreaEl.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadAreaEl.style.borderColor = '';
+        uploadAreaEl.style.background = '';
+        const files = Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf');
+        files.forEach(file => {
+            state.resumes.push(file);
+        });
+        renderFileList();
+    });
 }
 
 // File Management
@@ -140,8 +170,6 @@ async function handleRank() {
             formData.append('job_description', state.jobDescription);
             formData.append('file', file);
 
-            // ⚠️ REPLACE THIS URL WITH YOUR ACTUAL RENDER URL ⚠️
-            // Example: https://resume-matcher-api.onrender.com/match
             const response = await fetch('https://resume-jd-matching-ml.onrender.com/match', {
                 method: 'POST',
                 body: formData
@@ -158,9 +186,9 @@ async function handleRank() {
                 
                 results.push({
                     name: jsonResponse.filename,
+                    file: file, // Store file reference for "Open Resume"
                     preview: "Processed via Gemini & ML", 
                     hybridScore: data.match_percentage, 
-                    // Store both lists from backend
                     matchedSkills: data.extracted_skills || [], 
                     missingSkills: data.missing_skills || []
                 });
@@ -237,7 +265,6 @@ function createRankingCard(ranking, idx) {
             <div class="skills-list">
     `;
     
-    // Show first 10 matched skills
     ranking.matchedSkills.slice(0, 10).forEach(skill => {
         skillsHTML += `<span class="skill-badge">${skill}</span>`;
     });
@@ -246,7 +273,7 @@ function createRankingCard(ranking, idx) {
     }
     skillsHTML += `</div></div>`;
 
-    // 4. Missing Skills (Red) - NEW SECTION
+    // 4. Missing Skills (Red)
     if (ranking.missingSkills.length > 0) {
         skillsHTML += `
             <div class="skills-section" style="margin-top: 1rem;">
@@ -255,7 +282,6 @@ function createRankingCard(ranking, idx) {
         `;
         
         ranking.missingSkills.slice(0, 10).forEach(skill => {
-            // Inline styles for red badges
             skillsHTML += `<span class="skill-badge" style="background: #fef2f2; color: #ef4444; border: 1px solid #fecaca;">${skill}</span>`;
         });
         
@@ -265,8 +291,30 @@ function createRankingCard(ranking, idx) {
         skillsHTML += `</div></div>`;
     }
 
-    card.innerHTML = headerHTML + metricsHTML + skillsHTML;
+    // 5. Open Resume Button
+    const openBtnHTML = `
+        <button class="open-resume-btn" data-filename="${ranking.name}">
+            <i class="fas fa-external-link-alt"></i>
+            Open Resume
+        </button>
+    `;
+
+    card.innerHTML = headerHTML + metricsHTML + skillsHTML + openBtnHTML;
+
+    // Wire up the open resume button
+    const openBtn = card.querySelector('.open-resume-btn');
+    openBtn.addEventListener('click', () => {
+        openResume(ranking.file);
+    });
+
     return card;
+}
+
+// Open resume file in a new tab
+function openResume(file) {
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    window.open(url, '_blank');
 }
 
 // Utilities

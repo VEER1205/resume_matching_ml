@@ -49,17 +49,24 @@
                 <!-- Job Description -->
                 <div class="card">
                     <div class="card-label">Job Description</div>
-                    <textarea id="jobDescription" placeholder="For e.g. We are looking for a Backend / Machine Learning Engineer to build and maintain data-driven applications.
-The role involves developing backend services, integrating machine learning models, and working with structured data." rows="8"></textarea>
+                    <textarea id="jobDescription" placeholder="Role: Backend / ML Engineer&#10;&#10;Requirements:&#10;• Strong Python programming&#10;• Experience building REST APIs&#10;• Familiarity with machine learning concepts&#10;• Experience with data preprocessing and model deployment&#10;• Knowledge of FastAPI or Flask preferred" rows="8"></textarea>
                 </div>
 
                 <!-- Upload Box with Corner Brackets -->
                 <div class="upload-box" style="margin-top: 2rem;">
                     <label class="upload-label">Upload Resumes</label>
-                    <p class="upload-helper">Supports .txt files • Multiple uploads allowed</p>
+                    <p class="upload-helper">Supports PDF files • Multiple uploads allowed</p>
                     
-                    <div class="upload-input-wrapper">
-                        <input type="file" id="resumeInput" class="upload-input" accept=".txt" multiple>
+                    <input type="file" id="resumeInput" class="upload-input-hidden" accept=".pdf" multiple>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-area-icon">
+                            <i class="fas fa-cloud-arrow-up"></i>
+                        </div>
+                        <div class="upload-area-text">
+                            Drag & drop files here or <span>Browse Files</span>
+                        </div>
+                        <div class="upload-area-hint">PDF files only</div>
                     </div>
                     
                     <!-- Files List -->
